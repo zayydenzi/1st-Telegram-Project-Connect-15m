@@ -85,8 +85,8 @@ jobs:
           message: |
             <b>╔═══💻═════════💻═══╗</b>
             <b> 🤖 <b>ALGORITHM OPTIMIZED!</b> 🤖  </b>
-            <b> ⚡ BUILD SUCCESSFUL!    ⚡   </b>
-            <b> 🧠 READY FOR NEXT CODE! 🧠   </b>
+            <b>  ⚡  BUILD SUCCESSFUL!  ⚡   </b>
+            <b> 🧠 READY FOR NEXT CODE!! 🧠   </b>
             <b>╚═══💻═════════💻═══╝</b>
 
             <b>• 🚀 New Level:</b> <code>${{ env.LEVEL_NAME }}</code>
