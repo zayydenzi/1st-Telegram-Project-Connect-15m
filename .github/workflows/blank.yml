@@ -89,11 +89,17 @@ jobs:
             <b>   🚀READY FOR NEXT QUEST🚀  </b>
             <b>╚═══🎮══════════🎮═══╝</b>
 
-            <b>• 🎮 New Level : </b> <code>${{ env.LEVEL_NAME }}</code>
-            <b>• 🗂️ Repository : </b> <code>${{ github.repository }}</code>
-            <b>• 🕒 Time : </b> <code>${{ env.FORMATTED_TIME }}</code>
-            <b>• 🔢 Notification Number : </b> <b>${{ env.NOTIF_COUNTER }}</b>
-            <b>• 👤 Auto Commit By : </b> <b>zayydenzi@gmail.com</b>
+            <pre>
+• 🎮 New Level:            ${{ env.LEVEL_NAME }}
+─────────────────────────────────────────────
+• 🗂️ Repository:           ${{ github.repository }}
+─────────────────────────────────────────────
+• 🕒 Time:                 ${{ env.FORMATTED_TIME }}
+─────────────────────────────────────────────
+• 🔢 Notification Number:  ${{ env.NOTIF_COUNTER }}
+─────────────────────────────────────────────
+• 👤 Auto Commit By:       zayydenzi@gmail.com
+            </pre>
 
             <b>#NextLevel #GamingMode</b>
             <b>💯 This script was 100% created by Abie Haryatmo</b>
