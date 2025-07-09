@@ -17,12 +17,15 @@ jobs:
       - name: ✨⭐️🧡 Epic Level Unlocked Banner
         run: |
           echo ""
-          echo "══════════════════════════════════════"
-          echo "   🔴⭐️ ♔ LEVEL UNLOCKED! ♕ ⚫️⭐️"
-          echo "      ♛ THE GATE OPENS ♚"
-          echo "   🔴⭐️ NEW COOL LEVEL ⭐️⚫️"
-          echo "      ♔ UNLEASH YOUR POWER ♛"
-          echo "══════════════════════════════════════"
+          echo "╔═════════════════════════════════════════════╗"
+          echo "║"
+          echo "║   🎉⭐️🧡 ＬＥＶＥＬ   ＵＮＬＯＣＫＥＤ ! 🧡⭐️🎉"
+          echo "║      ✦✦✦  THE GATE TO GLORY OPENS  ✦✦✦"
+          echo "║"
+          echo "║   🚀🔥💎 ＮＥＷ   ＣＯＯＬ   ＬＥＶＥＬ 💎🔥🚀"
+          echo "║      ✦✦✦  UNLEASH YOUR NEXT POWER!  ✦✦✦"
+          echo "║"
+          echo "╚═════════════════════════════════════════════╝"
           echo ""
 
       - name: 📝 Generate Next Cool Level (no ASCII)
@@ -84,21 +87,20 @@ jobs:
           to: ${{ secrets.TELEGRAM_TO }}
           token: ${{ secrets.TELEGRAM_TOKEN }}
           message: |
-            <b>══════════════════════════════════════</b>
-            <b>🔴⭐️ ♔ LEVEL UNLOCKED! ♕ ⚫️⭐️</b>
-            <b>♛ THE GATE OPENS ♚</b>
-            <b>🔴⭐️ NEW COOL LEVEL ⭐️⚫️</b>
-            <b>♔ UNLEASH YOUR POWER ♛</b>
-            <b>══════════════════════════════════════</b>
+            <b>╔═════════════════════════════════════╗</b>
+            <b>🎉⭐️🧡 LEVEL UNLOCKED! 🧡⭐️🎉</b>
+            <b>✦✦✦ THE GATE TO GLORY OPENS ✦✦✦</b>
+            <b>🚀🔥💎 NEW COOL LEVEL 💎🔥🚀</b>
+            <b>✦✦✦ UNLEASH YOUR NEXT POWER! ✦✦✦</b>
+            <b>╚═════════════════════════════════════╝</b>
 
             🎮 <b>Level Baru:</b> <i>${{ env.LEVEL_NAME }}</i>
             🗂️ <b>Repo:</b> <code>${{ github.repository }}</code>
             🕒 <b>Waktu:</b> <code>${{ env.FORMATTED_TIME }}</code>
             🔢 <b>Notifikasi ke:</b> <b>${{ env.NOTIF_COUNTER }}</b>
             👤 <b>Dibuat oleh:</b> <i>zayydenzi@gmail.com</i>
+            <b>💯 Script 100% Created By : Abie Haryatmo</b>
             <b>#NextLevel</b>
-            <b><span style="color:#1f8ceb;">First, solve the problem. Then, write the code.</span></b>
-            <b><span style="color:#FF6600;">💯 Script 100% Created By : Abie Haryatmo</span></b>
           format: html
 
       - name: 🤖 Configure Git
