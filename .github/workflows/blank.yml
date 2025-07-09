@@ -84,12 +84,12 @@ jobs:
           to: ${{ secrets.TELEGRAM_TO }}
           token: ${{ secrets.TELEGRAM_TOKEN }}
           message: |
-            <b>╔═════════🎮═════════════════🎮═════════╗</b>
-            <b>           🕹️ <b>LEVEL UP!</b> 🕹️           </b>
-            <b>     ⚔️  <b>ACHIEVEMENT UNLOCKED!</b>  ⚔️     </b>
-            <b>     👑 <b>CLAIM YOUR REWARD NOW!</b> 👑      </b>
-            <b>   🔥 ENTER GOD MODE, CHAMPION! 🔥     </b>
-            <b>╚═════════🎮═════════════════🎮═════════╝</b>
+            <b>╔═════🎮═════════════════🎮══════╗</b>
+            <b>   🕹️ <b>LEVEL UP!</b> 🕹️           </b>
+            <b>⚔️<b>ACHIEVEMENT UNLOCKED!</b>⚔️     </b>
+            <b>👑<b>CLAIM YOUR REWARD NOW!</b>👑      </b>
+            <b>  🔥ENTER GOD MODE, CHAMPION!🔥     </b>
+            <b>╚═════🎮═════════════════🎮══════╝</b>
 
             <b>• 🎮 New Level:</b> <code>${{ env.LEVEL_NAME }}</code>
             <b>• 🗂️ Repository:</b> <code>${{ github.repository }}</code>
