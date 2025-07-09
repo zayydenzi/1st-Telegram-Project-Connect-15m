@@ -14,15 +14,14 @@ jobs:
       - name: ⬇️ Checkout Code
         uses: actions/checkout@v4
 
-      - name: ✨⭐️🧡 Epic Level Unlocked Banner
+      - name: ✨ Epic Level Unlocked Banner
         run: |
           echo ""
           echo "╔═✪✪✪═══════════════════════✪✪✪═╗"
-          echo "║      🎉 LEVEL UNLOCKED! 🎉       ║"
-          echo "║         ⭐️🧡  #NextLevel  🧡⭐️      ║"
-          echo "║         🚀 COOLNESS DEPLOYED 🚀   ║"
+          echo "║      🎉 LEVEL UNLOCKED! 🎉      ║"
+          echo "║      🚀 COOLNESS DEPLOYED 🚀     ║"
           echo "║  🔥💎 THE GATE TO GLORY OPENS 💎🔥  ║"
-          echo "║     🏆 UNLEASH YOUR POWER! 🏆      ║"
+          echo "║     🏆 UNLEASH YOUR POWER! 🏆     ║"
           echo "╚═✪✪✪═══════════════════════✪✪✪═╝"
           echo ""
 
@@ -63,7 +62,7 @@ jobs:
           {
             echo "# 🌌 Level: $next_name"
             echo "# Generated at: $(date -u)"
-            echo "# Dijalankan oleh: zayydenzi@gmail.com"
+            echo "# By: zayydenzi@gmail.com"
           } > "$file_name"
 
           echo "LEVEL_NAME=$next_name" >> $GITHUB_ENV
@@ -86,11 +85,10 @@ jobs:
           token: ${{ secrets.TELEGRAM_TOKEN }}
           message: |
             <b>╔═✪✪✪═══════════════════════✪✪✪═╗</b>
-            <b>        🎉 <u>LEVEL UNLOCKED!</u> 🎉        </b>
-            <b>         ⭐️🧡  #NextLevel  🧡⭐️         </b>
-            <b>         🚀 <i>COOLNESS DEPLOYED</i> 🚀      </b>
+            <b>      🎉 <u>LEVEL UNLOCKED!</u> 🎉      </b>
+            <b>      🚀 <i>COOLNESS DEPLOYED</i> 🚀     </b>
             <b>  🔥💎 THE GATE TO GLORY OPENS 💎🔥  </b>
-            <b>     🏆 <i>UNLEASH YOUR POWER!</i> 🏆     </b>
+            <b>     🏆 <i>UNLEASH YOUR POWER!</i> 🏆    </b>
             <b>╚═✪✪✪═══════════════════════✪✪✪═╝</b>
 
             <b>• 🎮 New Level:</b> <code>${{ env.LEVEL_NAME }}</code>
