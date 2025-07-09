@@ -93,7 +93,7 @@ jobs:
             <b>• 🗂️ Repository :</b> <b>${{ github.repository }}</b>
             <b>• 🕒 Time :</b> <b>${{ env.FORMATTED_TIME }}</b>
             <b>• 🔢 Notification number :</b> <b>${{ env.NOTIF_COUNTER }}</b>
-            <b>• 👤 Auto commit :</b> <b>zayydenzi@gmail.com</b>
+            <b>• 👤 Auto commit by :</b> <b>zayydenzi@gmail.com</b>
 
             <b>#NextLevel #GamingMode</b>
             <b>💯 This script was 100% created by Abie Haryatmo</b>
