@@ -17,10 +17,12 @@ jobs:
       - name: ✨ Epic Level Unlocked Banner
         run: |
           echo ""
-          echo "╔═✪✪✪═══════════════════════✪✪✪═╗"
-          echo "║      🎉 LEVEL UNLOCKED! 🎉      ║"
-          echo "║     🏆 UNLEASH YOUR POWER! 🏆     ║"
-          echo "╚═✪✪✪═══════════════════════✪✪✪═╝"
+          echo "╔═════🌟════════════════════🌟═════╗"
+          echo "║        🎉 LEVEL UNLOCKED! 🎉        ║"
+          echo "║     🚀 POWER UP YOUR LEGEND! 🚀     ║"
+          echo "║     💎 CLAIM YOUR GLORY NOW! 💎     ║"
+          echo "║      🏆 UNLEASH YOUR POWER! 🏆      ║"
+          echo "╚═════🌟════════════════════🌟═════╝"
           echo ""
 
       - name: 📝 Generate Next Cool Level (no ASCII)
@@ -82,16 +84,18 @@ jobs:
           to: ${{ secrets.TELEGRAM_TO }}
           token: ${{ secrets.TELEGRAM_TOKEN }}
           message: |
-            <b>╔═✪✪✪═══════════════════════✪✪✪═╗</b>
-            <b>      🎉 <u>LEVEL UNLOCKED!</u> 🎉      </b>
-            <b>     🏆 <i>UNLEASH YOUR POWER!</i> 🏆    </b>
-            <b>╚═✪✪✪═══════════════════════✪✪✪═╝</b>
+            <b>╔═════🌟════════════════════🌟═════╗</b>
+            <b>        🎉 <b>LEVEL UNLOCKED!</b> 🎉        </b>
+            <b>     🚀 POWER UP YOUR LEGEND! 🚀     </b>
+            <b>     💎 <b>CLAIM YOUR GLORY NOW!</b> 💎     </b>
+            <b>      🏆 UNLEASH YOUR POWER! 🏆      </b>
+            <b>╚═════🌟════════════════════🌟═════╝</b>
 
             <b>• 🎮 New Level:</b> <code>${{ env.LEVEL_NAME }}</code>
             <b>• 🗂️ Repository:</b> <code>${{ github.repository }}</code>
             <b>• 🕒 Time:</b> <code>${{ env.FORMATTED_TIME }}</code>
             <b>• 🔢 Notification Number:</b> <b>${{ env.NOTIF_COUNTER }}</b>
-            <b>• 👤 Auto Commit By:</b> <i>zayydenzi@gmail.com</i>
+            <b>• 👤 Auto Commit By:</b> <b>zayydenzi@gmail.com</b>
 
             <b>#NextLevel</b>
             <b>💯 This script was 100% created by Abie Haryatmo</b>
