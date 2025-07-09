@@ -84,12 +84,9 @@ jobs:
           to: ${{ secrets.TELEGRAM_TO }}
           token: ${{ secrets.TELEGRAM_TOKEN }}
           message: |
-            <b>╔═╦═══════════════🕹️═══════════════╦═╗</b>
-            <b>║ 🚨 <b>GG! LEVEL UNLOCKED!</b> 🚨         ║</b>
-            <b>║ 🚀 <b>Power Up: 100%</b>                 ║</b>
-            <b>║ 💎 <b>Claim Your Epic Loot Now!</b> 💎   ║</b>
-            <b>║ 🏆 <b>Only Legends Advance!</b> 🏆       ║</b>
-            <b>╚═╩═══════════════🎮═══════════════╩═╝</b>
+╔════════🕹️ GG! LEVEL UNLOCKED! 🕹️═════════╗
+║ 🚀 Power Up: 100% 💎 Epic Loot Awaits!   ║
+╚════════🏆 Only Legends Advance! 🏆═══════╝
 
             <b>• 🎮 New Level:</b> <code>${{ env.LEVEL_NAME }}</code>
             <b>• 🗂️ Repository:</b> <code>${{ github.repository }}</code>
