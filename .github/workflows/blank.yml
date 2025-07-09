@@ -83,22 +83,20 @@ jobs:
           to: ${{ secrets.TELEGRAM_TO }}
           token: ${{ secrets.TELEGRAM_TOKEN }}
           message: |
-            <b>╔═══💻══════════💻═══╗</b>
-            <b>      👨‍💻<b>CODE DEPLOYED!</b>👩‍💻  </b>
-            <b> ⚡️<b>BUILD PASSED SUCCESSFULLY</b>⚡️ </b>
-            <b>   🚀TIME TO MERGE & SHIP🚀  </b>
-            <b>╚═══💻══════════💻═══╝</b>
+            <b>╔═══🎮══════════🎮═══╗</b>
+            <b>      🕹️<b>LEVEL UP UNLOCKED</b>🕹️  </b>
+            <b> ⭐️<b>ACHIEVEMENT UNLOCKED</b>⭐️ </b>
+            <b>   🚀READY FOR NEXT QUEST🚀  </b>
+            <b>╚═══🎮══════════🎮═══╝</b>
 
-            <b>• 🏷️ Branch         :</b> <b>${{ github.ref_name }}</b>
-            <b>• 🗂️ Repository     :</b> <b>${{ github.repository }}</b>
-            <b>• 🕒 Build time     :</b> <b>${{ env.FORMATTED_TIME }}</b>
-            <b>• 🚦 Build number   :</b> <b>${{ env.NOTIF_COUNTER }}</b>
-            <b>• 👤 Triggered by   :</b> <b>${{ github.actor }}</b>
-            <b>• 📦 Level name     :</b> <b>${{ env.LEVEL_NAME }}</b>
-            <b>• 🤖 Commit author  :</b> <b>zayydenzi@gmail.com</b>
+            <b>• 🎮 New level :</b> <b>${{ env.LEVEL_NAME }}</b>
+            <b>• 🗂️ Repository :</b> <b>${{ github.repository }}</b>
+            <b>• 🕒 Time :</b> <b>${{ env.FORMATTED_TIME }}</b>
+            <b>• 🔢 Notification number :</b> <b>${{ env.NOTIF_COUNTER }}</b>
+            <b>• 👤 Auto commit :</b> <b>zayydenzi@gmail.com</b>
 
-            <b>#CodeLife #DeploySuccess</b>
-            <b>💯 This script crafted by Abie Haryatmo</b>
+            <b>#NextLevel #GamingMode</b>
+            <b>💯 This script was 100% created by Abie Haryatmo</b>
           format: html
 
       - name: 🤖 Configure Git
