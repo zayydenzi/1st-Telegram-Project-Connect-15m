@@ -17,12 +17,12 @@ jobs:
       - name: ✨ Epic Level Unlocked Banner
         run: |
           echo ""
-          echo "╔═✪✪✪═══════════════════════✪✪✪═╗"
-          echo "║      🎉 LEVEL UNLOCKED! 🎉      ║"
+          echo "╔═『✪✪✪』══════════════════════『✪✪✪』═╗"
+          echo "║      🎊 LEVEL UNLOCKED! 🎊      ║"
           echo "║      🚀 COOLNESS DEPLOYED 🚀     ║"
-          echo "║  🔥💎 THE GATE TO GLORY OPENS 💎🔥  ║"
-          echo "║     🏆 UNLEASH YOUR POWER! 🏆     ║"
-          echo "╚═✪✪✪═══════════════════════✪✪✪═╝"
+          echo "║  💠✨ THE GATE TO GLORY OPENS ✨💠  ║"
+          echo "║     🏅 UNLEASH YOUR POWER! 🏅     ║"
+          echo "╚═『✪✪✪』══════════════════════『✪✪✪』═╝"
           echo ""
 
       - name: 📝 Generate Next Cool Level (no ASCII)
@@ -84,12 +84,12 @@ jobs:
           to: ${{ secrets.TELEGRAM_TO }}
           token: ${{ secrets.TELEGRAM_TOKEN }}
           message: |
-            <b>╔═✪✪✪═══════════════════════✪✪✪═╗</b>
-            <b>      🎉 <u>LEVEL UNLOCKED!</u> 🎉      </b>
+            <b>╔═『✪✪✪』══════════════════════『✪✪✪』═╗</b>
+            <b>      🎊 <u>LEVEL UNLOCKED!</u> 🎊      </b>
             <b>      🚀 <i>COOLNESS DEPLOYED</i> 🚀     </b>
-            <b>  🔥💎 THE GATE TO GLORY OPENS 💎🔥  </b>
-            <b>     🏆 <i>UNLEASH YOUR POWER!</i> 🏆    </b>
-            <b>╚═✪✪✪═══════════════════════✪✪✪═╝</b>
+            <b>  💠✨ THE GATE TO GLORY OPENS ✨💠  </b>
+            <b>     🏅 <i>UNLEASH YOUR POWER!</i> 🏅     </b>
+            <b>╚═『✪✪✪』══════════════════════『✪✪✪』═╝</b>
 
             <b>• 🎮 New Level:</b> <code>${{ env.LEVEL_NAME }}</code>
             <b>• 🗂️ Repository:</b> <code>${{ github.repository }}</code>
