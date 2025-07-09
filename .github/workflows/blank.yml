@@ -14,15 +14,14 @@ jobs:
       - name: ⬇️ Checkout Code
         uses: actions/checkout@v4
 
-      - name: 🕹️ GAMER LEVEL UP Banner
+      - name: ✨ Programmer Level Unlocked Banner
         run: |
           echo ""
-          echo "╔═════🎮══════════════🎮═════╗"
-          echo "║       🕹️ LEVEL UP! 🕹️      ║"
-          echo "║ ⚔️ACHIEVEMENT UNLOCKED!⚔️  ║"
-          echo "║ 👑CLAIM YOUR REWARD NOW!👑 ║"
-          echo "║🔥ENTER GOD MODE,CHAMPION!🔥║"
-          echo "╚═════🎮══════════════🎮═════╝"
+          echo "╔═══💻════════════════════💻═══╗"
+          echo "║ 🤖 ALGORITHM OPTIMIZED! 🤖  ║"
+          echo "║ ⚡ BUILD SUCCESSFUL!    ⚡   ║"
+          echo "║ 🧠 READY FOR NEXT CODE! 🧠   ║"
+          echo "╚═══💻════════════════════💻═══╝"
           echo ""
 
       - name: 📝 Generate Next Cool Level (no ASCII)
@@ -84,20 +83,19 @@ jobs:
           to: ${{ secrets.TELEGRAM_TO }}
           token: ${{ secrets.TELEGRAM_TOKEN }}
           message: |
-            <b>╔═════🎮═════════════════🎮══════╗</b>
-            <b>   🕹️ <b>LEVEL UP!</b> 🕹️           </b>
-            <b>⚔️<b>ACHIEVEMENT UNLOCKED!</b>⚔️     </b>
-            <b>👑<b>CLAIM YOUR REWARD NOW!</b>👑      </b>
-            <b>  🔥ENTER GOD MODE, CHAMPION!🔥     </b>
-            <b>╚═════🎮═════════════════🎮══════╝</b>
+            <b>╔═══💻════════════════════💻═══╗</b>
+            <b> 🤖 <b>ALGORITHM OPTIMIZED!</b> 🤖  </b>
+            <b> ⚡ BUILD SUCCESSFUL!    ⚡   </b>
+            <b> 🧠 READY FOR NEXT CODE! 🧠   </b>
+            <b>╚═══💻════════════════════💻═══╝</b>
 
-            <b>• 🎮 New Level:</b> <code>${{ env.LEVEL_NAME }}</code>
+            <b>• 🚀 New Level:</b> <code>${{ env.LEVEL_NAME }}</code>
             <b>• 🗂️ Repository:</b> <code>${{ github.repository }}</code>
             <b>• 🕒 Time:</b> <code>${{ env.FORMATTED_TIME }}</code>
             <b>• 🔢 Notification Number:</b> <b>${{ env.NOTIF_COUNTER }}</b>
             <b>• 👤 Auto Commit By:</b> <b>zayydenzi@gmail.com</b>
 
-            <b>#NextLevel #GamingMode</b>
+            <b>#NextLevel #CodeGenius</b>
             <b>💯 This script was 100% created by Abie Haryatmo</b>
           format: html
 
