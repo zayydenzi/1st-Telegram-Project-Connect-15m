@@ -84,9 +84,9 @@ jobs:
           token: ${{ secrets.TELEGRAM_TOKEN }}
           message: |
             <b>╔═══🎮══════════🎮═══╗</b>
-            <b> 🕹️ <b>LEVEL UP UNLOCKED!</b>  🕹️  </b>
-            <b> ⭐️ <b>ACHIEVEMENT UNLOCKED!</b> ⭐️ </b>
-            <b> 🚀 READY FOR NEXT QUEST! 🚀  </b>
+            <b>  🕹️ <b>LEVEL UP UNLOCKED!</b> 🕹️  </b>
+            <b> ⭐️ <b>ACHIEVEMENT UNLOCKED</b> ⭐️ </b>
+            <b>  🚀 READY FOR NEXT QUEST! 🚀  </b>
             <b>╚═══🎮══════════🎮═══╝</b>
 
             <b>• 🎮 New Level:</b> <code>${{ env.LEVEL_NAME }}</code>
