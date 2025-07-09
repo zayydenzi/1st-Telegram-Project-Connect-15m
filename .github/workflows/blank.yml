@@ -14,18 +14,18 @@ jobs:
       - name: ⬇️ Checkout Code
         uses: actions/checkout@v4
 
-      - name: ✨⭐️🧡 Epic Level Unlocked Banner
+      - name: ✨🟩🟪 Epic Level Unlocked Banner
         run: |
           echo ""
-          echo "╔═════════════════════════════════════════════╗"
+          echo "╔═══════════════════════════════════════════╗"
           echo "║"
-          echo "║   🎉⭐️🧡 ＬＥＶＥＬ   ＵＮＬＯＣＫＥＤ ! 🧡⭐️🎉"
+          echo "║   🎉🟩🟪 ＬＥＶＥＬ   ＵＮＬＯＣＫＥＤ ! 🟪🟩🎉"
           echo "║      ✦✦✦  THE GATE TO GLORY OPENS  ✦✦✦"
           echo "║"
           echo "║   🚀🔥💎 ＮＥＷ   ＣＯＯＬ   ＬＥＶＥＬ 💎🔥🚀"
           echo "║      ✦✦✦  UNLEASH YOUR NEXT POWER!  ✦✦✦"
           echo "║"
-          echo "╚═════════════════════════════════════════════╝"
+          echo "╚═══════════════════════════════════════════╝"
           echo ""
 
       - name: 📝 Generate Next Cool Level (no ASCII)
@@ -87,12 +87,12 @@ jobs:
           to: ${{ secrets.TELEGRAM_TO }}
           token: ${{ secrets.TELEGRAM_TOKEN }}
           message: |
-            <b>╔═════════════════════════════════════╗</b>
-            <b>🎉⭐️🧡 LEVEL UNLOCKED! 🧡⭐️🎉</b>
+            <b>╔═══════════════════════════════════════════╗</b>
+            <b>🎉🟩🟪 LEVEL UNLOCKED! 🟪🟩🎉</b>
             <b>✦✦✦ THE GATE TO GLORY OPENS ✦✦✦</b>
             <b>🚀🔥💎 NEW COOL LEVEL 💎🔥🚀</b>
             <b>✦✦✦ UNLEASH YOUR NEXT POWER! ✦✦✦</b>
-            <b>╚═════════════════════════════════════╝</b>
+            <b>╚═══════════════════════════════════════════╝</b>
 
             🎮 <b>Level Baru:</b> <i>${{ env.LEVEL_NAME }}</i>
             🗂️ <b>Repo:</b> <code>${{ github.repository }}</code>
