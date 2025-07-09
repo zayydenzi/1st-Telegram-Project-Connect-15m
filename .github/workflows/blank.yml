@@ -91,17 +91,28 @@ jobs:
             <b>      🏆 UNLEASH YOUR POWER! 🏆      </b>
             <b>╚═════🌟════════════════════🌟═════╝</b>
 
-            <b>━━━━━━━━━━━ 🆕 STATUS BOARD 🆕 ━━━━━━━━━━━</b>
-            <b>🔰 LEVEL BADGE   :</b> <code>🎮 | ${{ env.LEVEL_NAME }} |</code> <b>← Your new identity!</b>
-            <b>📦 REPO VAULT    :</b> <code>🗂️  ${{ github.repository }}</code> <b>← Mission zone</b>
-            <b>🕰️ TIME STAMP    :</b> <code>⏳  ${{ env.FORMATTED_TIME }}</code> <b>← Synced to reality</b>
-            <b>🥇 NOTIF COUNTER :</b> <code>🔢  #${{ env.NOTIF_COUNTER }}</code> <b>← Keep ‘em coming!</b>
-            <b>🤖 AUTO BOT      :</b> <code>👤  zayydenzi@gmail.com</code> <b>← The mastermind</b>
-            <b>━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━</b>
+            <b>┏━━ 🎮 NEW LEVEL ━━┓</b>
+            <code>${{ env.LEVEL_NAME }}</code>
+            <b>┗━━━━━━━━━━━━━━━━━━┛</b>
 
-            <b>🟢 <u>Power Tip:</u> DOUBLE TAP this message to unlock more energy for your next quest! 🟢</b>
+            <b>┏━━ 🗂️ REPOSITORY ━━┓</b>
+            <code>${{ github.repository }}</code>
+            <b>┗━━━━━━━━━━━━━━━━━━┛</b>
+
+            <b>┏━━ 🕒 TIME ━━┓</b>
+            <code>${{ env.FORMATTED_TIME }}</code>
+            <b>┗━━━━━━━━━━━━┛</b>
+
+            <b>┏━━ 🔢 QUEST # ━━┓</b>
+            <b> #${{ env.NOTIF_COUNTER }} </b>
+            <b>┗━━━━━━━━━━━━━━┛</b>
+
+            <b>┏━━ 👤 SUMMONER ━━┓</b>
+            <b> zayydenzi@gmail.com </b>
+            <b>┗━━━━━━━━━━━━━━━━┛</b>
+
             <b>#NextLevel</b>
-            <b>🛠️ Scripted with pride by Abie Haryatmo</b>
+            <b>💯 This script was 100% created by Abie Haryatmo</b>
           format: html
 
       - name: 🤖 Configure Git
