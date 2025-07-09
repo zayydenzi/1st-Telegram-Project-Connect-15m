@@ -7,29 +7,31 @@ on:
 
 jobs:
   generate-level:
-    name: 🌟 Generate Cool Level
+    name: "🌟 Generate Cool Level"
     runs-on: ubuntu-latest
 
     steps:
       - name: ⬇️ Checkout Code
         uses: actions/checkout@v4
 
-      - name: ✨ Epic Level Unlocked Banner
+      - name: 🦄 Ultra Innovative Level Banner
         run: |
           echo ""
-          echo "╔═════🌟════════════════════🌟═════╗"
-          echo "║        🎉 LEVEL UNLOCKED! 🎉        ║"
-          echo "║     🚀 POWER UP YOUR LEGEND! 🚀     ║"
-          echo "║     💎 CLAIM YOUR GLORY NOW! 💎     ║"
-          echo "║      🏆 UNLEASH YOUR POWER! 🏆      ║"
-          echo "╚═════🌟════════════════════🌟═════╝"
+          echo "╔═━━━✨━━━🪐━━═╗"
+          echo "║   🚀✨  LEVEL UP!  ✨🚀   ║"
+          echo "║ 🦄  Level: \"$(date +%H:%M)\"  🦄 ║"
+          echo "║ ◾️⚡️  $(date +%A)\ -\ $(date +%d\ %b\ %Y)  ⚡️◾️ ║"
+          echo "║  🎯  $(hostname)  🎯  ║"
+          echo "║----------------------║"
+          echo "║ 💎  CLAIM YOUR GLORY!  💎 ║"
+          echo "║ 🏆  UNLEASH YOUR POWER!  🏆 ║"
+          echo "╚═━━━✨━━━🪐━━═╝"
           echo ""
 
       - name: 📝 Generate Next Cool Level (no ASCII)
         shell: bash
         run: |
           set -e
-
           cool_names=(
             "Vortex" "Nebula" "Phoenix" "Falcon" "Titan" "Shadow" "Blaze" "Nova" "Specter" "Stellar"
             "Inferno" "Cosmos" "Zephyr" "Obsidian" "Glacier" "Thunder" "Matrix" "Aurora" "Samurai" "Ninja"
@@ -37,15 +39,12 @@ jobs:
             "Genesis" "Saber" "Onyx" "Blizzard" "Venom" "Storm" "Astro" "Galaxy" "Eclipse" "Magma"
             "Turbo" "Rogue" "Elemental" "Surge" "Radiant" "Zenith" "Prime" "Sentinel" "Golem" "Mystic"
           )
-
           mkdir -p levels
-
           last_name=""
           if ls levels/level-*-*.txt 1> /dev/null 2>&1; then
             last_file=$(ls levels/level-*-*.txt | sort | tail -n 1)
             last_name=$(basename "$last_file" | sed -E 's/level-[0-9]{8}-[0-9]{4}-(.*)\.txt/\1/')
           fi
-
           idx=0
           if [ -n "$last_name" ]; then
             for i in "${!cool_names[@]}"; do
@@ -55,16 +54,13 @@ jobs:
               fi
             done
           fi
-
           next_name="${cool_names[$idx]}"
           file_name="levels/level-$(date +%Y%m%d-%H%M)-${next_name}.txt"
-
           {
             echo "# 🌌 Level: $next_name"
             echo "# Generated at: $(date -u)"
             echo "# By: zayydenzi@gmail.com"
           } > "$file_name"
-
           echo "LEVEL_NAME=$next_name" >> $GITHUB_ENV
           echo "Created $file_name"
 
@@ -84,19 +80,18 @@ jobs:
           to: ${{ secrets.TELEGRAM_TO }}
           token: ${{ secrets.TELEGRAM_TOKEN }}
           message: |
-            <b>╔═════🌟════════════════════🌟═════╗</b>
-            <b>        🎉 <b>LEVEL UNLOCKED!</b> 🎉        </b>
-            <b>     🚀 POWER UP YOUR LEGEND! 🚀     </b>
-            <b>     💎 <b>CLAIM YOUR GLORY NOW!</b> 💎     </b>
-            <b>      🏆 UNLEASH YOUR POWER! 🏆      </b>
-            <b>╚═════🌟════════════════════🌟═════╝</b>
+            <b>╔═━━━✨━━━🪐━━═╗</b>
+            <b>   🚀✨ <b>LEVEL UP!</b> ✨🚀   </b>
+            <b> 🦄  Level: <code>${{ env.LEVEL_NAME }}</code>  🦄 </b>
+            <b> ◾️⚡️  ${{ env.FORMATTED_TIME }}  ⚡️◾️ </b>
+            <b>  🎯  ${{ github.repository }}  🎯  </b>
+            <b>----------------------</b>
+            <b> 💎 <b>CLAIM YOUR GLORY!</b> 💎 </b>
+            <b> 🏆 UNLEASH YOUR POWER! 🏆 </b>
+            <b>╚═━━━✨━━━🪐━━═╝</b>
 
-            <b>• 🎮 New Level:</b> <code>${{ env.LEVEL_NAME }}</code>
-            <b>• 🗂️ Repository:</b> <code>${{ github.repository }}</code>
-            <b>• 🕒 Time:</b> <code>${{ env.FORMATTED_TIME }}</code>
             <b>• 🔢 Notification Number:</b> <b>${{ env.NOTIF_COUNTER }}</b>
             <b>• 👤 Auto Commit By:</b> <b>zayydenzi@gmail.com</b>
-
             <b>#NextLevel</b>
             <b>💯 This script was 100% created by Abie Haryatmo</b>
           format: html
