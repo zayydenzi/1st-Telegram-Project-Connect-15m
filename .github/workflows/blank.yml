@@ -14,15 +14,15 @@ jobs:
       - name: ⬇️ Checkout Code
         uses: actions/checkout@v4
 
-      - name: ✨ Build Passed Banner
+      - name: ✨ Epic Level Unlocked Banner
         run: |
           echo ""
-          echo "╔═══💻══════════════════════════💻═══╗"
-          echo "║    🟢 BUILD PASSED — LEVEL UNLOCKED! 🟢    ║"
-          echo "║   🚀 CI Pipeline executed successfully!    ║"
-          echo "║   📦 New artifact/version generated.       ║"
-          echo "║   🔔 Automated by GitHub Actions.          ║"
-          echo "╚═══💻══════════════════════════💻═══╝"
+          echo "╔═════🌟════════════════════🌟═════╗"
+          echo "║        🎉 LEVEL UNLOCKED! 🎉        ║"
+          echo "║     🚀 POWER UP YOUR LEGEND! 🚀     ║"
+          echo "║     💎 CLAIM YOUR GLORY NOW! 💎     ║"
+          echo "║      🏆 UNLEASH YOUR POWER! 🏆      ║"
+          echo "╚═════🌟════════════════════🌟═════╝"
           echo ""
 
       - name: 📝 Generate Next Cool Level (no ASCII)
@@ -84,12 +84,9 @@ jobs:
           to: ${{ secrets.TELEGRAM_TO }}
           token: ${{ secrets.TELEGRAM_TOKEN }}
           message: |
-            <b>╔═══💻══════════════════════════💻═══╗</b>
-            <b>    🟢 <b>BUILD PASSED — LEVEL UNLOCKED!</b> 🟢    </b>
-            <b>   🚀 CI Pipeline executed successfully!    </b>
-            <b>   📦 New artifact/version generated.       </b>
-            <b>   🔔 Automated by GitHub Actions.          </b>
-            <b>╚═══💻══════════════════════════💻═══╝</b>
+            <b>╔═━━[ 💻 LEVEL UNLOCKED ]━━═╗</b>
+            <b>║ 🚀 <code>${{ env.LEVEL_NAME }}</code> | Status: SUCCESS ║</b>
+            <b>╚═━━[ #NextLevel | ⏳ AutoGen ]━━═╝</b>
 
             <b>• 🎮 New Level:</b> <code>${{ env.LEVEL_NAME }}</code>
             <b>• 🗂️ Repository:</b> <code>${{ github.repository }}</code>
