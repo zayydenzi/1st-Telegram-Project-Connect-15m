@@ -83,11 +83,11 @@ jobs:
           to: ${{ secrets.TELEGRAM_TO }}
           token: ${{ secrets.TELEGRAM_TOKEN }}
           message: |
-            <b>╔═══💻═════════💻═══╗</b>
+            <b>╔═══💻═══════════💻═══╗</b>
             <b> 🤖 <b>ALGORITHM OPTIMIZED!</b> 🤖  </b>
             <b>  ⚡  BUILD SUCCESSFUL!  ⚡   </b>
             <b> 🧠 READY FOR NEXT CODE!! 🧠   </b>
-            <b>╚═══💻═════════💻═══╝</b>
+            <b>╚═══💻═══════════💻═══╝</b>
 
             <b>• 🚀 New Level:</b> <code>${{ env.LEVEL_NAME }}</code>
             <b>• 🗂️ Repository:</b> <code>${{ github.repository }}</code>
