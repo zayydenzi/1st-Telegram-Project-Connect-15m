@@ -101,6 +101,7 @@ jobs:
             👤 <b>Dibuat oleh:</b> <i>zayydenzi@gmail.com</i>
             <b>💯 Script 100% Created By : Abie Haryatmo</b>
             <b>#NextLevel</b>
+            <b><span style="font-family: 'Arial Black', Arial, Impact, sans-serif; font-size: 15px; color: #1f8ceb;">First, solve the problem. Then, write the code.</span></b>
           format: html
 
       - name: 🤖 Configure Git
