@@ -17,15 +17,17 @@ jobs:
       - name: 🔥🌊 Modern Level Unlocked Banner
         run: |
           echo ""
-          echo "╭─────────────────────────────────────────────╮"
-          echo "│  "
-          echo "│   🔥🌊  LEVEL UNLOCKED!  🌊🔥"
-          echo "│"
-          echo "│   🚀⚡️  ~ NEW COOL LEVEL DEPLOYED ~  ⚡️🚀"
-          echo "│"
-          echo "│   Status: 200 OK"
-          echo "│"
-          echo "╰─────────────────────────────────────────────╯"
+          echo "╭────────────────────────────╮"
+          echo "│ 🔥🌊  LEVEL UNLOCKED!  🌊🔥"
+          echo "│ ─────────────"
+          echo "│ 🚀⚡️  NEW COOL LEVEL!  ⚡️🚀"
+          echo "│ ─────────────"
+          echo "│ Status: 200 OK"
+          echo "│ ─────────────"
+          echo "│ 🎉 KEEP PUSHING FORWARD! 🎉"
+          echo "│ ─────────────"
+          echo "│ ⭐️ STAY AWESOME! ⭐️"
+          echo "╰────────────────────────────╯"
           echo ""
 
       - name: 📝 Generate Next Cool Level (no ASCII)
@@ -68,7 +70,6 @@ jobs:
             echo "# Dijalankan oleh: zayydenzi@gmail.com"
           } > "$file_name"
 
-          # Simpan nama level ke environment agar bisa dipakai di step berikutnya (Telegram)
           echo "LEVEL_NAME=$next_name" >> $GITHUB_ENV
 
           echo "Created $file_name"
@@ -80,7 +81,6 @@ jobs:
       - name: 🔢 Generate Notification Counter
         id: notif-counter
         run: |
-          # Hitung jumlah file level yang sudah dibuat sebagai counter notifikasi
           count=$(ls levels/level-*-*.txt 2>/dev/null | wc -l)
           echo "NOTIF_COUNTER=$count" >> $GITHUB_ENV
 
@@ -90,20 +90,24 @@ jobs:
           to: ${{ secrets.TELEGRAM_TO }}
           token: ${{ secrets.TELEGRAM_TOKEN }}
           message: |
-            ╭─────────────────────────────────────────────╮
-            🔥🌊 *LEVEL UNLOCKED!* 🌊🔥
-            🚀⚡️ *~ NEW COOL LEVEL DEPLOYED ~* ⚡️🚀
-            *Status:* `200 OK`
-            ──────────────────────────────────────────────
+            <b>╭────────────────────────────╮</b>
+            <b>🔥🌊 LEVEL UNLOCKED! 🌊🔥</b>
+            <b>─────────────</b>
+            <b>🚀⚡️ NEW COOL LEVEL! ⚡️🚀</b>
+            <b>─────────────</b>
+            <b>Status:</b> <code>200 OK</code>
+            <b>─────────────</b>
+            <b>🎉 KEEP PUSHING FORWARD! 🎉</b>
+            <b>─────────────</b>
+            <b>⭐️ STAY AWESOME! ⭐️</b>
 
-            🎮 *Level Baru:* **${{ env.LEVEL_NAME }}**
-            🗂️ *Repo:* `${{ github.repository }}`
-
-            🕒 *Waktu:* `${{ env.FORMATTED_TIME }}`
-            🔢 *Notifikasi ke:* *${{ env.NOTIF_COUNTER }}*
-            👤 *Dibuat oleh:* **zayydenzi@gmail.com**
-            ---
-            #NextLevel
+            🎮 <b>Level Baru:</b> <i>${{ env.LEVEL_NAME }}</i>
+            🗂️ <b>Repo:</b> <code>${{ github.repository }}</code>
+            🕒 <b>Waktu:</b> <code>${{ env.FORMATTED_TIME }}</code>
+            🔢 <b>Notifikasi ke:</b> <b>${{ env.NOTIF_COUNTER }}</b>
+            👤 <b>Dibuat oleh:</b> <i>zayydenzi@gmail.com</i>
+            <b>#NextLevel</b>
+        parse_mode: html
 
       - name: 🤖 Configure Git
         run: |
