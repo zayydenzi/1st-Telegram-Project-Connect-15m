@@ -95,12 +95,12 @@ jobs:
             <b>╚═════════════════════════════════════╝</b>
 
             🎮 <b>New Level:</b> <i>${{ env.LEVEL_NAME }}</i>
-            🗂️ <b>REPOSITORY PROJECT:</b> <code>${{ github.repository }}</code>
+            🗂️ <b>Repository:</b> <code>${{ github.repository }}</code>
             🕒 <b>Time:</b> <code>${{ env.FORMATTED_TIME }}</code>
             🔢 <b>Notification Number:</b> <b>${{ env.NOTIF_COUNTER }}</b>
-            👤 <b>Created by:</b> <i>zayydenzi@gmail.com</i>
-            <b>💯 100% Created By : Abie Haryatmo</b>
+            👤 <b>Auto Commit By:</b> <i>zayydenzi@gmail.com</i>
             <b>#NextLevel</b>
+            <b>💯 This script was 100% created by Abie Haryatmo</b>
           format: html
 
       - name: 🤖 Configure Git
