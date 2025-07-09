@@ -1,4 +1,4 @@
-name: 🎮 Epic Gaming Level Generator
+name: 🚀 Auto Cool Level Generator
 
 on:
   schedule:
@@ -7,38 +7,35 @@ on:
 
 jobs:
   generate-level:
-    name: 🕹️ GENERATE GAMING LEVEL
+    name: 🌟 Generate Cool Level
     runs-on: ubuntu-latest
 
     steps:
-      - name: 🎲 Checkout Code
+      - name: ⬇️ Checkout Code
         uses: actions/checkout@v4
 
-      - name: 🏆 GAMER LEVEL UNLOCKED BANNER
+      - name: 🕹️ GAMER LEVEL UP Banner
         run: |
           echo ""
-          echo "░██████╗░░█████╗░███╗░░░███╗██╗███╗░░██╗░██████╗"
-          echo "██╔════╝░██╔══██╗████╗░████║██║████╗░██║██╔════╝"
-          echo "██║░░██╗░██║░░██║██╔████╔██║██║██╔██╗██║╚█████╗░"
-          echo "██║░░╚██╗██║░░██║██║╚██╔╝██║██║██║╚████║░╚═══██╗"
-          echo "╚██████╔╝╚█████╔╝██║░╚═╝░██║██║██║░╚███║██████╔╝"
-          echo "░╚═════╝░░╚════╝░╚═╝░░░░░╚═╝╚═╝╚═╝░░╚══╝╚═════╝░"
-          echo "        🚀 GAMER LEVEL UNLOCKED! 🚀"
-          echo "           💥 POWER UP NOW! 💥"
-          echo "        🏅 Claim your Victory! 🏅"
+          echo "╔═════🎮══════════════🎮═════╗"
+          echo "║       🕹️ LEVEL UP! 🕹️      ║"
+          echo "║ ⚔️ACHIEVEMENT UNLOCKED!⚔️  ║"
+          echo "║ 👑CLAIM YOUR REWARD NOW!👑 ║"
+          echo "║🔥ENTER GOD MODE,CHAMPION!🔥║"
+          echo "╚═════🎮══════════════🎮═════╝"
           echo ""
 
-      - name: 👾 Generate Next Gaming Level (no ASCII)
+      - name: 📝 Generate Next Cool Level (no ASCII)
         shell: bash
         run: |
           set -e
 
-          gamer_names=(
-            "RogueX" "Phantom" "Vortex" "BlazeFire" "NinjaX" "Shadow" "Drift" "Sonic" "Titan" "Nova"
-            "Samurai" "Valkyrie" "Onyx" "Genesis" "Storm" "Inferno" "Thunder" "Astro" "Mirage" "Venom"
-            "Frost" "Specter" "Matrix" "Glacier" "Eclipse" "Turbo" "Cosmos" "Ranger" "Prime" "Obsidian"
-            "Falcon" "Zephyr" "Mystic" "Sentinel" "Cipher" "Ronin" "Aurora" "Stellar" "Galaxy" "Radiant"
-            "Magma" "Golem" "Surge" "Elemental" "Oracle" "Echo" "Blizzard" "Phoenix" "Turbo" "Rogue"
+          cool_names=(
+            "Vortex" "Nebula" "Phoenix" "Falcon" "Titan" "Shadow" "Blaze" "Nova" "Specter" "Stellar"
+            "Inferno" "Cosmos" "Zephyr" "Obsidian" "Glacier" "Thunder" "Matrix" "Aurora" "Samurai" "Ninja"
+            "Ronin" "Valkyrie" "Oracle" "Sonic" "Ranger" "Drift" "Mirage" "Cipher" "Echo" "Titanium"
+            "Genesis" "Saber" "Onyx" "Blizzard" "Venom" "Storm" "Astro" "Galaxy" "Eclipse" "Magma"
+            "Turbo" "Rogue" "Elemental" "Surge" "Radiant" "Zenith" "Prime" "Sentinel" "Golem" "Mystic"
           )
 
           mkdir -p levels
@@ -51,19 +48,19 @@ jobs:
 
           idx=0
           if [ -n "$last_name" ]; then
-            for i in "${!gamer_names[@]}"; do
-              if [[ "${gamer_names[$i]}" == "$last_name" ]]; then
-                idx=$(( (i + 1) % ${#gamer_names[@]} ))
+            for i in "${!cool_names[@]}"; do
+              if [[ "${cool_names[$i]}" == "$last_name" ]]; then
+                idx=$(( (i + 1) % ${#cool_names[@]} ))
                 break
               fi
             done
           fi
 
-          next_name="${gamer_names[$idx]}"
+          next_name="${cool_names[$idx]}"
           file_name="levels/level-$(date +%Y%m%d-%H%M)-${next_name}.txt"
 
           {
-            echo "# 🎮 Gaming Level: $next_name"
+            echo "# 🌌 Level: $next_name"
             echo "# Generated at: $(date -u)"
             echo "# By: zayydenzi@gmail.com"
           } > "$file_name"
@@ -81,27 +78,26 @@ jobs:
           count=$(ls levels/level-*-*.txt 2>/dev/null | wc -l)
           echo "NOTIF_COUNTER=$count" >> $GITHUB_ENV
 
-      - name: 🕹️ Send Notification to Telegram
+      - name: 🔔 Send Notification to Telegram
         uses: appleboy/telegram-action@v0.1.0
         with:
           to: ${{ secrets.TELEGRAM_TO }}
           token: ${{ secrets.TELEGRAM_TOKEN }}
           message: |
-            <b>░██████╗░░█████╗░███╗░░░███╗██╗███╗░░██╗░██████╗</b>
-            <b>██╔════╝░██╔══██╗████╗░████║██║████╗░██║██╔════╝</b>
-            <b>██║░░██╗░██║░░██║██╔████╔██║██║██╔██╗██║╚█████╗░</b>
-            <b>██║░░╚██╗██║░░██║██║╚██╔╝██║██║██║╚████║░╚═══██╗</b>
-            <b>╚██████╔╝╚█████╔╝██║░╚═╝░██║██║██║░╚███║██████╔╝</b>
-            <b>░╚═════╝░░╚════╝░╚═╝░░░░░╚═╝╚═╝╚═╝░░╚══╝╚═════╝░</b>
+            <b>╔═════════🎮═════════════════🎮═════════╗</b>
+            <b>           🕹️ <b>LEVEL UP!</b> 🕹️           </b>
+            <b>     ⚔️  <b>ACHIEVEMENT UNLOCKED!</b>  ⚔️     </b>
+            <b>     👑 <b>CLAIM YOUR REWARD NOW!</b> 👑      </b>
+            <b>   🔥 ENTER GOD MODE, CHAMPION! 🔥     </b>
+            <b>╚═════════🎮═════════════════🎮═════════╝</b>
 
-            <b>🚀 GAMING LEVEL UNLOCKED!</b>
-            <b>🎮 New Level:</b> <code>${{ env.LEVEL_NAME }}</code>
-            <b>🗂️ Repository:</b> <code>${{ github.repository }}</code>
-            <b>🕒 Time:</b> <code>${{ env.FORMATTED_TIME }}</code>
-            <b>🔢 Notification Number:</b> <b>${{ env.NOTIF_COUNTER }}</b>
-            <b>👤 Auto Commit By:</b> <b>zayydenzi@gmail.com</b>
+            <b>• 🎮 New Level:</b> <code>${{ env.LEVEL_NAME }}</code>
+            <b>• 🗂️ Repository:</b> <code>${{ github.repository }}</code>
+            <b>• 🕒 Time:</b> <code>${{ env.FORMATTED_TIME }}</code>
+            <b>• 🔢 Notification Number:</b> <b>${{ env.NOTIF_COUNTER }}</b>
+            <b>• 👤 Auto Commit By:</b> <b>zayydenzi@gmail.com</b>
 
-            <b>#EpicGamer #NextLevel</b>
+            <b>#NextLevel #GamingMode</b>
             <b>💯 This script was 100% created by Abie Haryatmo</b>
           format: html
 
@@ -113,5 +109,5 @@ jobs:
       - name: 🚩 Commit & Push Changes
         run: |
           git add levels/
-          git commit -m "🎮 Add Gaming Level: ${{ env.LEVEL_NAME }} (by zayydenzi@gmail.com)" || echo "Nothing to commit"
+          git commit -m "✨ Add Level: ${{ env.LEVEL_NAME }} (by zayydenzi@gmail.com)" || echo "Nothing to commit"
           git push
