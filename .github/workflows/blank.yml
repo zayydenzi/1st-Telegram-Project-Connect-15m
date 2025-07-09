@@ -17,15 +17,13 @@ jobs:
       - name: ✨⭐️🧡 Epic Level Unlocked Banner
         run: |
           echo ""
-          echo "╔═════════════════════════════════════════════╗"
-          echo "║"
-          echo "║   🎉⭐️🧡 ＬＥＶＥＬ   ＵＮＬＯＣＫＥＤ ! 🧡⭐️🎉"
-          echo "║      ✦✦✦  THE GATE TO GLORY OPENS  ✦✦✦"
-          echo "║"
-          echo "║   🚀🔥💎 ＮＥＷ   ＣＯＯＬ   ＬＥＶＥＬ 💎🔥🚀"
-          echo "║      ✦✦✦  UNLEASH YOUR NEXT POWER!  ✦✦✦"
-          echo "║"
-          echo "╚═════════════════════════════════════════════╝"
+          echo "╔═✪✪✪═══════════════════════✪✪✪═╗"
+          echo "║      🎉 LEVEL UNLOCKED! 🎉       ║"
+          echo "║         ⭐️🧡  #NextLevel  🧡⭐️      ║"
+          echo "║         🚀 COOLNESS DEPLOYED 🚀   ║"
+          echo "║  🔥💎 THE GATE TO GLORY OPENS 💎🔥  ║"
+          echo "║     🏆 UNLEASH YOUR POWER! 🏆      ║"
+          echo "╚═✪✪✪═══════════════════════✪✪✪═╝"
           echo ""
 
       - name: 📝 Generate Next Cool Level (no ASCII)
@@ -87,18 +85,23 @@ jobs:
           to: ${{ secrets.TELEGRAM_TO }}
           token: ${{ secrets.TELEGRAM_TOKEN }}
           message: |
-            <b>╔═════════════════════════════════════╗</b>
-            <b>🎉⭐️🧡 LEVEL UNLOCKED! 🧡⭐️🎉</b>
-            <b>✦✦✦ THE GATE TO GLORY OPENS ✦✦✦</b>
-            <b>🚀🔥💎 NEW COOL LEVEL 💎🔥🚀</b>
-            <b>✦✦✦ UNLEASH YOUR NEXT POWER! ✦✦✦</b>
-            <b>╚═════════════════════════════════════╝</b>
+            <b>╔═✪✪✪═══════════════════════✪✪✪═╗</b>
+            <b>        🎉 <u>LEVEL UNLOCKED!</u> 🎉        </b>
+            <b>         ⭐️🧡  #NextLevel  🧡⭐️         </b>
+            <b>         🚀 <i>COOLNESS DEPLOYED</i> 🚀      </b>
+            <b>  🔥💎 THE GATE TO GLORY OPENS 💎🔥  </b>
+            <b>     🏆 <i>UNLEASH YOUR POWER!</i> 🏆     </b>
+            <b>╚═✪✪✪═══════════════════════✪✪✪═╝</b>
 
-            <b>• 🎮 New Level:</b> <code>${{ env.LEVEL_NAME }}</code>
-            <b>• 🗂️ Repository:</b> <code>${{ github.repository }}</code>
-            <b>• 🕒 Time:</b> <code>${{ env.FORMATTED_TIME }}</code>
-            <b>• 🔢 Notification Number:</b> <b>${{ env.NOTIF_COUNTER }}</b>
-            <b>• 👤 Auto Commit By:</b> <i>zayydenzi@gmail.com</i>
+            <pre>
+╔════════════════════════════════════════════════╗
+║ • 🎮 New Level:         ${{ env.LEVEL_NAME }}              
+║ • 🗂️ Repository:        ${{ github.repository }}      
+║ • 🕒 Time:              ${{ env.FORMATTED_TIME }}    
+║ • 🔢 Notification No.:  ${{ env.NOTIF_COUNTER }}     
+║ • 👤 Auto Commit By:    zayydenzi@gmail.com       
+╚════════════════════════════════════════════════╝
+            </pre>
 
             <b>#NextLevel</b>
             <b>💯 This script was 100% created by Abie Haryatmo</b>
