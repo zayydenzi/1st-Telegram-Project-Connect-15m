@@ -30,11 +30,11 @@ jobs:
           set -e
 
           cool_names=(
-            "VORTEX" "NEBULA" "PHOENIX" "FALCON" "TITAN" "SHADOW" "BLAZE" "NOVA" "SPECTER" "STELLAR"
-            "INFERNO" "COSMOS" "ZEPHYR" "OBSIDIAN" "GLACIER" "THUNDER" "MATRIX" "AURORA" "SAMURAI" "NINJA"
-            "RONIN" "VALKYRIE" "ORACLE" "SONIC" "RANGER" "DRIFT" "MIRAGE" "CIPHER" "ECHO" "TITANIUM"
-            "GENESIS" "SABER" "ONYX" "BLIZZARD" "VENOM" "STORM" "ASTRO" "GALAXY" "ECLIPSE" "MAGMA"
-            "TURBO" "ROGUE" "ELEMENTAL" "SURGE" "RADIANT" "ZENITH" "PRIME" "SENTINEL" "GOLEM" "MYSTIC"
+            "Vortex" "Nebula" "Phoenix" "Falcon" "Titan" "Shadow" "Blaze" "Nova" "Specter" "Stellar"
+            "Inferno" "Cosmos" "Zephyr" "Obsidian" "Glacier" "Thunder" "Matrix" "Aurora" "Samurai" "Ninja"
+            "Ronin" "Valkyrie" "Oracle" "Sonic" "Ranger" "Drift" "Mirage" "Cipher" "Echo" "Titanium"
+            "Genesis" "Saber" "Onyx" "Blizzard" "Venom" "Storm" "Astro" "Galaxy" "Eclipse" "Magma"
+            "Turbo" "Rogue" "Elemental" "Surge" "Radiant" "Zenith" "Prime" "Sentinel" "Golem" "Mystic"
           )
 
           mkdir -p levels
@@ -89,14 +89,14 @@ jobs:
             <b>   🚀READY FOR NEXT QUEST🚀  </b>
             <b>╚═══🎮══════════🎮═══╝</b>
 
-            <b>• 🎮 NEW LEVEL           :</b> <b>${{ env.LEVEL_NAME }}</b>
-            <b>• 🗂️ REPOSITORY          :</b> <b>${{ github.repository }}</b>
-            <b>• 🕒 TIME                :</b> <b>${{ env.FORMATTED_TIME }}</b>
-            <b>• 🔢 NOTIFICATION NUMBER :</b> <b>${{ env.NOTIF_COUNTER }}</b>
-            <b>• 👤 AUTO COMMIT BY      :</b> <b>ZAYYDENZI@GMAIL.COM</b>
+            <b>• 🎮 New level :</b> <b>${{ env.LEVEL_NAME }}</b>
+            <b>• 🗂️ Repository :</b> <b>${{ github.repository }}</b>
+            <b>• 🕒 Time :</b> <b>${{ env.FORMATTED_TIME }}</b>
+            <b>• 🔢 Notification number :</b> <b>${{ env.NOTIF_COUNTER }}</b>
+            <b>• 👤 Auto commit by :</b> <b>zayydenzi@gmail.com</b>
 
-            <b>#NEXTLEVEL #GAMINGMODE</b>
-            <b>💯 THIS SCRIPT WAS 100% CREATED BY ABIE HARYATMO</b>
+            <b>#NextLevel #GamingMode</b>
+            <b>💯 This script was 100% created by Abie Haryatmo</b>
           format: html
 
       - name: 🤖 Configure Git
