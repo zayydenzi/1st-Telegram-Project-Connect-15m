@@ -2,7 +2,7 @@ name: 🚀 Auto Cool Level Generator
 
 on:
   schedule:
-    - cron: '*/15 * * * *' # Setiap 15 menit sekali
+    - cron: '*/15 * * * *' # Every 15 minutes
   workflow_dispatch:
 
 jobs:
@@ -81,7 +81,7 @@ jobs:
           count=$(ls levels/level-*-*.txt 2>/dev/null | wc -l)
           echo "NOTIF_COUNTER=$count" >> $GITHUB_ENV
 
-      - name: 🔔 Kirim Notifikasi ke Telegram
+      - name: 🔔 Send Notification to Telegram
         uses: appleboy/telegram-action@v0.1.0
         with:
           to: ${{ secrets.TELEGRAM_TO }}
@@ -94,12 +94,12 @@ jobs:
             <b>✦✦✦ UNLEASH YOUR NEXT POWER! ✦✦✦</b>
             <b>╚═════════════════════════════════════╝</b>
 
-            🎮 <b>Level Baru:</b> <i>${{ env.LEVEL_NAME }}</i>
-            🗂️ <b>Repo:</b> <code>${{ github.repository }}</code>
-            🕒 <b>Waktu:</b> <code>${{ env.FORMATTED_TIME }}</code>
-            🔢 <b>Notifikasi ke:</b> <b>${{ env.NOTIF_COUNTER }}</b>
-            👤 <b>Dibuat oleh:</b> <i>zayydenzi@gmail.com</i>
-            <b>💯 Script 100% Created By : Abie Haryatmo</b>
+            🎮 <b>New Level:</b> <i>${{ env.LEVEL_NAME }}</i>
+            🗂️ <b>REPOSITORY PROJECT:</b> <code>${{ github.repository }}</code>
+            🕒 <b>Time:</b> <code>${{ env.FORMATTED_TIME }}</code>
+            🔢 <b>Notification Number:</b> <b>${{ env.NOTIF_COUNTER }}</b>
+            👤 <b>Created by:</b> <i>zayydenzi@gmail.com</i>
+            <b>💯 100% Created By : Abie Haryatmo</b>
             <b>#NextLevel</b>
           format: html
 
