@@ -109,7 +109,7 @@ jobs:
           {
             echo "# Cultivation Level: $LEVEL_NAME"
             echo "# Generated at: $(date -u)"
-            echo "# By: zayydenzi@gmail.com"
+            echo "# By: zayydenzi@gmail.com" # This email will be replaced by the next user's request
             echo "# Score: $score"
           } > "$file_name"
           echo "LEVEL_NAME=$LEVEL_NAME" >> $GITHUB_ENV
@@ -190,7 +190,7 @@ jobs:
                     elif .key == 2 then
                       "🥉 \($u)\($pad) | [Score: \(.value.score)]"
                     else
-                      "🏅 \(.key+1). \($u)\($pad) | [Score: \(.value.score)]"
+                      "   \(.key+1). \($u)\($pad) | [Score: \(.value.score)]" # Modified line for ranks 4+
                     end
                   )
               )
@@ -223,7 +223,7 @@ jobs:
             <b>• 🚶 JOURNEY_AT :</b> <code>${{ env.FORMATTED_TIME }}</code>
 
             <b>• 🧩 CULTIVATION_STAGE :</b> <code>${{ env.LEVEL_NAME }}</code>
-            <b>• 👤 IMMORTAL_NAME :</b> <code>zayydenzi@gmail.com</code>
+            <b>• 👤 IMMORTAL_NAME :</b> <code>zayydenzi@gmail.com</code> # This email will be replaced by the next user's request
 
             <b>🏆 <u>LEADERBOARD (TOP 10 GLOBAL)</u> 🏆</b>
             ━━━━━━━━━━━━━━━━━━━━━━
@@ -239,7 +239,7 @@ jobs:
       - name: 🤖 Configure Git
         run: |
           git config user.name "abieharyatmo01"
-          git config user.email "zayydenzi@gmail.com"
+          git config user.email "zayydenzi@gmail.com" # This email will be replaced by the next user's request
 
       - name: 🚩 Commit & Push Changes (Auto-resolve Conflict)
         run: |
