@@ -171,7 +171,7 @@ jobs:
           SCORE_SELF=$(jq -r --arg user "${{ github.actor }}" '[.[] | select(.user==$user)] | length' global_leaderboard.json)
           echo "SCORE_SELF=$SCORE_SELF" >> $GITHUB_ENV
 
-          # AWAL PERUBAHAN JQ UNTUK PERBAIKAN SINTAKS DAN PERATAAN
+          # AWAL PERBAIKAN SINTAKS JQ DAN LOGIKA PERATAAN
           leaderboard=$(jq -r '
             group_by(.user)
             | map({ user: .[0].user, score: length })
@@ -184,29 +184,26 @@ jobs:
                 | (.key + 1) as $rank
                 | ($max_user_len - ($u | length)) as $spaces
                 | ($spaces | if . > 0 then (" " * .) else "" end) as $user_pad
-                | (
-                    if $rank == 1 then
-                      "🥇  " # Medali + 2 spasi, untuk lebar visual 4 karakter
-                    elif $rank == 2 then
-                      "🥈  " # Medali + 2 spasi
-                    elif $rank == 3 then
-                      "🥉  " # Medali + 2 spasi
-                    else
-                      # Untuk peringkat 4+, format sebagai " X. " atau "XX. " dan pastikan panjangnya 4 karakter
-                      # Buat string nomor + titik + spasi
-                      ($rank | to_string) + ". " as $rank_str_with_dot_space
-                      # Hitung berapa spasi di depan yang dibutuhkan
-                      (4 - ($rank_str_with_dot_space | length)) as $padding_needed
-                      # Tambahkan spasi dan gabungkan
-                      ($padding_needed | if . > 0 then (" " * .) else "" end) + $rank_str_with_dot_space
-                    end
-                  ) as $rank_prefix
+                |
+                # Tentukan prefix peringkat (medali atau angka)
+                if $rank == 1 then
+                  "🥇  " # Medali + 2 spasi (total 4 karakter visual)
+                elif $rank == 2 then
+                  "🥈  " # Medali + 2 spasi
+                elif $rank == 3 then
+                  "🥉  " # Medali + 2 spasi
+                else
+                  # Untuk peringkat 4+, format sebagai " X. " atau "XX. " dan pastikan panjangnya 4 karakter
+                  ($rank | to_string) + ". " | # Gabungkan angka, titik, dan spasi
+                  (4 - length) as $needed_padding | # Hitung spasi yang dibutuhkan di depan
+                  (if $needed_padding > 0 then (" " * $needed_padding) else "" end) + . # Tambahkan spasi
+                end as $rank_prefix
 
                 | "\($rank_prefix)\($u)\($user_pad) | [Score: \(.value.score)]"
               )
             | join("\n")
           ' global_leaderboard.json)
-          # AKHIR PERUBAHAN JQ
+          # AKHIR PERBAIKAN SINTAKS JQ
 
           if [ -z "$leaderboard" ] || [ "$leaderboard" == "null" ]; then
             leaderboard="No leaderboard data yet"
@@ -222,4 +219,105 @@ jobs:
           to: ${{ secrets.TELEGRAM_TO }}
           token: ${{ secrets.TELEGRAM_TOKEN }}
           message: |
-            <b>╔═══
+            <b>╔═══🌌══════════🌌═══╗</b>
+            <b>  🐉<b>SPIRIT VEINS AWAKENED</b>🐉  </b>
+            <b>🏮<b>IMMORTAL SEAL UNLOCKED</b>🏮 </b>
+            <b>    🍃QI FLOW HARMONIZED🍃  </b>
+            <b>╚═══🌌══════════🌌═══╝</b>
+
+            <b>• 🔁 TRIAL_RUN :</b> <code>${{ env.NOTIF_COUNTER }}</code>
+            <b>• 🏅 CULTIVATOR_SCORE :</b> <code>${{ env.SCORE_SELF }}</code>
+            <b>• 🏯 SECT_OWNER :</b> <code>${{ github.repository_owner }}</code>
+            <b>• 🚶 JOURNEY_AT :</b> <code>${{ env.FORMATTED_TIME }}</code>
+
+            <b>• 🧩 CULTIVATION_STAGE :</b> <code>${{ env.LEVEL_NAME }}</code>
+            <b>• 👤 IMMORTAL_NAME :</b> <code>zayydenzi@gmail.com</code> # Ini akan diganti oleh permintaan pengguna berikutnya
+
+            <b>🏆 <u>LEADERBOARD (TOP 10 GLOBAL)</u> 🏆</b>
+            ━━━━━━━━━━━━━━━━━━━━━━
+            <pre>${{ env.LEADERBOARD_GLOBAL }}</pre>
+            ━━━━━━━━━━━━━━━━━━━━━━
+
+            <b>#DaoHeartUnbroken #DevOpsCultivation</b>
+            <b>Script by Abie Haryatmo, Guardian of the Sect</b>
+            <b>🌌 "The immortal journey of cultivation in the DevOps realm continues..." 🌌</b>
+
+          format: html
+
+      - name: 🤖 Configure Git
+        run: |
+          git config user.name "abieharyatmo01"
+          git config user.email "zayydenzi@gmail.com" # Ini akan diganti oleh permintaan pengguna berikutnya
+
+      - name: 🚩 Commit & Push Changes (Auto-resolve Conflict)
+        run: |
+          set -e
+          git add levels/
+          git add data/leaderboard.json
+          git commit -m "✨ Cultivation Level: ${{ env.LEVEL_NAME }} (by ${{ github.actor }}) & update leaderboard" || echo "Nothing to commit"
+          git pull --rebase --autostash || {
+            echo "Conflict detected, resolving..."
+            git rebase --abort
+            git pull --no-rebase
+          }
+          git push
+
+  announce-weekly-winner:
+    if: github.event.schedule == '0 0 * * 1'
+    name: 🏅 Weekly Winner Announcement
+    runs-on: ubuntu-latest
+    steps:
+      - name: Fetch Leaderboard Data
+        env:
+          SHEETBEST_URL: ${{ secrets.SHEETBEST_URL }}
+        run: |
+          sudo apt-get update && sudo apt-get install -y jq
+          curl "$SHEETBEST_URL" > global_leaderboard.json
+
+          week_start=$(date -u -d 'last monday' +%Y-%m-%d)
+          week_end=$(date -u +%Y-%m-%d)
+
+          winner=$(jq -r --arg start "$week_start" --arg end "$week_end" '
+            [ .[] | select(.timestamp >= ($start + "T00:00:00Z") and .timestamp < ($end + "T00:00:00Z")) ]
+            | group_by(.user)
+            | map({user: .[0].user, score: length})
+            | max_by(.score) // default if empty
+          ' global_leaderboard.json)
+
+          user=$(echo "$winner" | jq -r .user)
+          score=$(echo "$winner" | jq -r .score)
+
+          badge=""
+          if [ "$user" != "null" ] && [ -n "$user" ]; then
+            total_score=$(jq -r --arg user "$user" '
+              [ .[] | select(.user == $user) ] | length
+            ' global_leaderboard.json)
+
+            if [ "$total_score" -ge 1001 ]; then
+              badge="🏆 <b>Immortal</b>"
+            elif [ "$total_score" -ge 841 ]; then
+              badge="🌌 <b>Heaven Trampling</b>"
+            elif [ "$total_score" -ge 201 ]; then
+              badge="🔥 <b>Void Master</b>"
+            elif [ "$total_score" -ge 101 ]; then
+              badge="⭐ <b>Nirvana Adept</b>"
+            elif [ "$total_score" -ge 1 ]; then
+              badge="✨ <b>Qi Practitioner</b>"
+            fi
+          fi
+
+          if [ "$user" == "null" ] || [ -z "$user" ]; then
+            msg="No contributors for this week."
+          else
+            msg="🏆 <b>Weekly Winner</b> (Period $week_start to $(date -u -d "$week_end -1 day" +%Y-%m-%d)):\n\n<b>$user</b> dengan <b>$score</b> level!\n$badge"
+          fi
+
+          echo "$msg" > winner_message.txt
+
+      - name: Send Telegram Announcement
+        uses: appleboy/telegram-action@v0.1.0
+        with:
+          to: ${{ secrets.TELEGRAM_TO }}
+          token: ${{ secrets.TELEGRAM_TOKEN }}
+          message_file: winner_message.txt
+          format: html
