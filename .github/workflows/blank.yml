@@ -51,7 +51,7 @@ jobs:
             "Half-step into Heaven (Half-Step Heaven Trampling)"
             "Step into the Heaven (Heaven Trampling)"
           )
-          # Fungsi untuk mendapatkan level kultivasi berdasarkan skor
+          # Function to get cultivation level based on score
           get_cultivation_level() {
             local score=$1
             if ((score >= 1 && score <= 14)); then
@@ -98,7 +98,7 @@ jobs:
           }
 
           mkdir -p levels
-          # Contoh: dapatkan skor pengguna dari leaderboard.json (default 1 jika tidak ditemukan)
+          # Example: get the user's score from leaderboard.json (default to 1 if not found)
           score=1
           if [ -f data/leaderboard.json ]; then
             user="${{ github.actor }}"
@@ -109,7 +109,7 @@ jobs:
           {
             echo "# Cultivation Level: $LEVEL_NAME"
             echo "# Generated at: $(date -u)"
-            echo "# By: zayydenzi@gmail.com" # Ini akan diganti oleh permintaan pengguna berikutnya
+            echo "# By: zayydenzi@gmail.com"
             echo "# Score: $score"
           } > "$file_name"
           echo "LEVEL_NAME=$LEVEL_NAME" >> $GITHUB_ENV
@@ -171,39 +171,31 @@ jobs:
           SCORE_SELF=$(jq -r --arg user "${{ github.actor }}" '[.[] | select(.user==$user)] | length' global_leaderboard.json)
           echo "SCORE_SELF=$SCORE_SELF" >> $GITHUB_ENV
 
-          # AWAL PERBAIKAN SINTAKS JQ DAN LOGIKA PERATAAN
           leaderboard=$(jq -r '
             group_by(.user)
             | map({ user: .[0].user, score: length })
             | sort_by(-.score, .user)
             | .[:10]
-            | (map(.user | length) | max) as $max_user_len
+            | (map(.user | length) | max) as $max
             | to_entries
             | map(
                 .value.user as $u
-                | (.key + 1) as $rank
-                | ($max_user_len - ($u | length)) as $spaces
-                | ($spaces | if . > 0 then (" " * .) else "" end) as $user_pad
-                |
-                # Tentukan prefix peringkat (medali atau angka)
-                if $rank == 1 then
-                  "🥇  " # Medali + 2 spasi (total 4 karakter visual)
-                elif $rank == 2 then
-                  "🥈  " # Medali + 2 spasi
-                elif $rank == 3 then
-                  "🥉  " # Medali + 2 spasi
-                else
-                  # Untuk peringkat 4+, format sebagai " X. " atau "XX. " dan pastikan panjangnya 4 karakter
-                  ($rank | to_string) + ". " | # Gabungkan angka, titik, dan spasi
-                  (4 - length) as $needed_padding | # Hitung spasi yang dibutuhkan di depan
-                  (if $needed_padding > 0 then (" " * $needed_padding) else "" end) + . # Tambahkan spasi
-                end as $rank_prefix
-
-                | "\($rank_prefix)\($u)\($user_pad) | [Score: \(.value.score)]"
+                | ($max - ($u | length)) as $spaces
+                | ($spaces | if . > 0 then (" " * .) else "" end) as $pad
+                | (
+                    if .key == 0 then
+                      "🥇 \($u)\($pad) | [Score: \(.value.score)]"
+                    elif .key == 1 then
+                      "🥈 \($u)\($pad) | [Score: \(.value.score)]"
+                    elif .key == 2 then
+                      "🥉 \($u)\($pad) | [Score: \(.value.score)]"
+                    else
+                      "🏅 \(.key+1). \($u)\($pad) | [Score: \(.value.score)]"
+                    end
+                  )
               )
             | join("\n")
           ' global_leaderboard.json)
-          # AKHIR PERBAIKAN SINTAKS JQ
 
           if [ -z "$leaderboard" ] || [ "$leaderboard" == "null" ]; then
             leaderboard="No leaderboard data yet"
@@ -231,7 +223,7 @@ jobs:
             <b>• 🚶 JOURNEY_AT :</b> <code>${{ env.FORMATTED_TIME }}</code>
 
             <b>• 🧩 CULTIVATION_STAGE :</b> <code>${{ env.LEVEL_NAME }}</code>
-            <b>• 👤 IMMORTAL_NAME :</b> <code>zayydenzi@gmail.com</code> # Ini akan diganti oleh permintaan pengguna berikutnya
+            <b>• 👤 IMMORTAL_NAME :</b> <code>zayydenzi@gmail.com</code>
 
             <b>🏆 <u>LEADERBOARD (TOP 10 GLOBAL)</u> 🏆</b>
             ━━━━━━━━━━━━━━━━━━━━━━
@@ -247,7 +239,7 @@ jobs:
       - name: 🤖 Configure Git
         run: |
           git config user.name "abieharyatmo01"
-          git config user.email "zayydenzi@gmail.com" # Ini akan diganti oleh permintaan pengguna berikutnya
+          git config user.email "zayydenzi@gmail.com"
 
       - name: 🚩 Commit & Push Changes (Auto-resolve Conflict)
         run: |
@@ -309,7 +301,7 @@ jobs:
           if [ "$user" == "null" ] || [ -z "$user" ]; then
             msg="No contributors for this week."
           else
-            msg="🏆 <b>Weekly Winner</b> (Period $week_start to $(date -u -d "$week_end -1 day" +%Y-%m-%d)):\n\n<b>$user</b> dengan <b>$score</b> level!\n$badge"
+            msg="🏆 <b>Weekly Winner</b> (Period $week_start to $(date -u -d "$week_end -1 day" +%Y-%m-%d)):\n\n<b>$user</b> with <b>$score</b> levels!\n$badge"
           fi
 
           echo "$msg" > winner_message.txt
