@@ -118,4 +118,198 @@ jobs:
 
       - name: ⏰ Generate Formatted Time
         run: |
-          echo "FORMATTED_TIME=$(TZ
+          echo "FORMATTED_TIME=$(TZ='Asia/Jakarta' date '+%d/%m/%y %H:%M:%S')" >> $GITHUB_ENV
+
+      - name: 🔢 Generate Notification Counter
+        id: notif-counter
+        run: |
+          count=$(ls levels/level-*-*.txt 2>/dev/null | wc -l)
+          echo "NOTIF_COUNTER=$count" >> $GITHUB_ENV
+
+      - name: 🏆 Update Leaderboard
+        run: |
+          mkdir -p data
+          file="data/leaderboard.json"
+          user="${{ github.actor }}"
+          if ! command -v jq &>/dev/null; then
+            sudo apt-get update && sudo apt-get install -y jq
+          fi
+          if [ ! -f "$file" ]; then
+            echo '{}' > "$file"
+          fi
+          new_json=$(jq --arg user "$user" '
+            .[$user] = (if .[$user] then .[$user] + 1 else 1 end)
+          ' "$file")
+          echo "$new_json" > "$file"
+
+      - name: 🌐 Update Global Leaderboard (SheetBest)
+        env:
+          SHEETBEST_URL: ${{ secrets.SHEETBEST_URL }}
+        run: |
+          if ! command -v jq &>/dev/null; then
+            sudo apt-get update && sudo apt-get install -y jq
+          fi
+          TIMESTAMP=$(date -u +"%Y-%m-%dT%H:%M:%SZ")
+          REPO="${{ github.repository }}"
+          USER="${{ github.actor }}"
+          LEVEL="${{ env.LEVEL_NAME }}"
+          SCORE="${{ env.SCORE }}"
+          JSON=$(jq -nc --arg timestamp "$TIMESTAMP" --arg repo "$REPO" --arg user "$USER" --arg level "$LEVEL" --arg score "$SCORE" \
+            '{timestamp: $timestamp, repo: $repo, user: $user, level: $level, score: $score}')
+          curl -X POST "$SHEETBEST_URL" \
+            -H "Content-Type: application/json" \
+            -d "$JSON"
+
+      - name: 🏆 Fetch Global Leaderboard (SheetBest)
+        env:
+          SHEETBEST_URL: ${{ secrets.SHEETBEST_URL }}
+        run: |
+          sudo apt-get update && sudo apt-get install -y jq
+          curl "$SHEETBEST_URL" > global_leaderboard.json
+
+          NOTIF_COUNTER="${{ env.NOTIF_COUNTER }}"
+          SCORE_SELF=$(jq -r --arg user "${{ github.actor }}" '[.[] | select(.user==$user)] | length' global_leaderboard.json)
+          echo "SCORE_SELF=$SCORE_SELF" >> $GITHUB_ENV
+
+          leaderboard=$(jq -r '
+            group_by(.user)
+            | map({ user: .[0].user, score: length })
+            | sort_by(-.score, .user)
+            | .[:10]
+            | (map(.user | length) | max) as $max
+            | to_entries
+            | map(
+                .value.user as $u
+                | ($max - ($u | length)) as $spaces
+                | ($spaces | if . > 0 then (" " * .) else "" end) as $pad
+                | (
+                    if .key == 0 then
+                      "🥇 \($u)\($pad) | [Score: \(.value.score)]"
+                    elif .key == 1 then
+                      "🥈 \($u)\($pad) | [Score: \(.value.score)]"
+                    elif .key == 2 then
+                      "🥉 \($u)\($pad) | [Score: \(.value.score)]"
+                    else
+                      "🏅 \(.key+1). \($u)\($pad) | [Score: \(.value.score)]"
+                    end
+                  )
+              )
+            | join("\n")
+          ' global_leaderboard.json)
+
+          if [ -z "$leaderboard" ] || [ "$leaderboard" == "null" ]; then
+            leaderboard="No leaderboard data yet"
+          fi
+
+          echo "LEADERBOARD_GLOBAL<<EOF" >> $GITHUB_ENV
+          echo "$leaderboard" >> $GITHUB_ENV
+          echo "EOF" >> $GITHUB_ENV
+
+      - name: 🔔 Send Notification to Telegram
+        uses: appleboy/telegram-action@v0.1.0
+        with:
+          to: ${{ secrets.TELEGRAM_TO }}
+          token: ${{ secrets.TELEGRAM_TOKEN }}
+          message: |
+            <b>╔═══🌌══════════🌌═══╗</b>
+            <b>  🐉<b>SPIRIT VEINS AWAKENED</b>🐉  </b>
+            <b>🏮<b>IMMORTAL SEAL UNLOCKED</b>🏮 </b>
+            <b>    🍃QI FLOW HARMONIZED🍃  </b>
+            <b>╚═══🌌══════════🌌═══╝</b>
+
+            <b>• 🔁 TRIAL_RUN :</b> <code>${{ env.NOTIF_COUNTER }}</code>
+            <b>• 🏅 CULTIVATOR_SCORE :</b> <code>${{ env.SCORE_SELF }}</code>
+            <b>• 🏯 SECT_OWNER :</b> <code>${{ github.repository_owner }}</code>
+            <b>• 🚶 JOURNEY_AT :</b> <code>${{ env.FORMATTED_TIME }}</code>
+
+            <b>• 🧩 CULTIVATION_STAGE :</b> <code>${{ env.LEVEL_NAME }}</code>
+            <b>• 👤 IMMORTAL_NAME :</b> <code>zayydenzi@gmail.com</code>
+
+            <b>🏆 <u>LEADERBOARD (TOP 10 GLOBAL)</u> 🏆</b>
+            ━━━━━━━━━━━━━━━━━━━━━━
+            <pre>${{ env.LEADERBOARD_GLOBAL }}</pre>
+            ━━━━━━━━━━━━━━━━━━━━━━
+
+            <b>#DaoHeartUnbroken #DevOpsCultivation</b>
+            <b>Script by Abie Haryatmo, Guardian of the Sect</b>
+            <b>🌌 "The immortal journey of cultivation in the DevOps realm continues..." 🌌</b>
+
+          format: html
+
+      - name: 🤖 Configure Git
+        run: |
+          git config user.name "zayydenzi"
+          git config user.email "zayydenzi@gmail.com"
+
+      - name: 🚩 Commit & Push Changes (Auto-resolve Conflict)
+        run: |
+          set -e
+          git add levels/
+          git add data/leaderboard.json
+          git commit -m "✨ Cultivation Level: ${{ env.LEVEL_NAME }} (by ${{ github.actor }}) & update leaderboard" || echo "Nothing to commit"
+          git pull --rebase --autostash || {
+            echo "Conflict detected, resolving..."
+            git rebase --abort
+            git pull --no-rebase
+          }
+          git push
+
+  announce-weekly-winner:
+    if: github.event.schedule == '0 0 * * 1'
+    name: 🏅 Weekly Winner Announcement
+    runs-on: ubuntu-latest
+    steps:
+      - name: Fetch Leaderboard Data
+        env:
+          SHEETBEST_URL: ${{ secrets.SHEETBEST_URL }}
+        run: |
+          sudo apt-get update && sudo apt-get install -y jq
+          curl "$SHEETBEST_URL" > global_leaderboard.json
+
+          week_start=$(date -u -d 'last monday' +%Y-%m-%d)
+          week_end=$(date -u +%Y-%m-%d)
+
+          winner=$(jq -r --arg start "$week_start" --arg end "$week_end" '
+            [ .[] | select(.timestamp >= ($start + "T00:00:00Z") and .timestamp < ($end + "T00:00:00Z")) ]
+            | group_by(.user)
+            | map({user: .[0].user, score: length})
+            | max_by(.score) // default if empty
+          ' global_leaderboard.json)
+
+          user=$(echo "$winner" | jq -r .user)
+          score=$(echo "$winner" | jq -r .score)
+
+          badge=""
+          if [ "$user" != "null" ] && [ -n "$user" ]; then
+            total_score=$(jq -r --arg user "$user" '
+              [ .[] | select(.user == $user) ] | length
+            ' global_leaderboard.json)
+
+            if [ "$total_score" -ge 1001 ]; then
+              badge="🏆 <b>Immortal</b>"
+            elif [ "$total_score" -ge 841 ]; then
+              badge="🌌 <b>Heaven Trampling</b>"
+            elif [ "$total_score" -ge 201 ]; then
+              badge="🔥 <b>Void Master</b>"
+            elif [ "$total_score" -ge 101 ]; then
+              badge="⭐ <b>Nirvana Adept</b>"
+            elif [ "$total_score" -ge 1 ]; then
+              badge="✨ <b>Qi Practitioner</b>"
+            fi
+          fi
+
+          if [ "$user" == "null" ] || [ -z "$user" ]; then
+            msg="No contributors for this week."
+          else
+            msg="🏆 <b>Weekly Winner</b> (Period $week_start to $(date -u -d "$week_end -1 day" +%Y-%m-%d)):\n\n<b>$user</b> with <b>$score</b> levels!\n$badge"
+          fi
+
+          echo "$msg" > winner_message.txt
+
+      - name: Send Telegram Announcement
+        uses: appleboy/telegram-action@v0.1.0
+        with:
+          to: ${{ secrets.TELEGRAM_TO }}
+          token: ${{ secrets.TELEGRAM_TOKEN }}
+          message_file: winner_message.txt
+          format: html
